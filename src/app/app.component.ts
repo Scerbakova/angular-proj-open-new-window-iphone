@@ -19,19 +19,17 @@ export class AppComponent {
   }
 
   openDocumentByEnum(productRegNr: string, documentType: any): void {
-    const newWindow = window.open('_blank');
+    const newWindow = window.open('', '_blank');
     // Simulate an asynchronous API call to get the link
     this.simulateAsyncApiCall(productRegNr, documentType)
       .then((result: string) => {
-        if (result) { 
-          if (newWindow) {
-            newWindow.location = result;
-            newWindow.focus();
-          } else {
-            console.error(
-              'A new window could not be opened. Please check your popup blocker settings.'
-            );
-          }
+        if (result && newWindow) {
+          newWindow.location = result;
+          newWindow.focus();
+        } else {
+          console.error(
+            'A new window could not be opened. Please check your popup blocker settings.'
+          );
         }
         console.log('The document was opened successfully.');
       })

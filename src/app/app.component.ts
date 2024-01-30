@@ -10,5 +10,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-proj-open-new-window-iphone';
+  prepareUrl(): string {
+
+      return "http://" + 'www.lvm.lv/images/lvm/Profesionaliem/Mežizstrāde/Pielikumi/Instrukcija_mezizstrades_pakalpojumu_sniedzejiem_par_dokumentu_elektronisko_apriti.pdf';
+
+  }
 }

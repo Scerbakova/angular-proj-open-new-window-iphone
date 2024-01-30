@@ -19,23 +19,41 @@ export class AppComponent {
   }
 
   openDocumentByEnum(productRegNr: string, documentType: any): void {
+    // Simulate an asynchronous API call to get the link
+    this.simulateAsyncApiCall(productRegNr, documentType)
+      .then((result: string) => {
+        if (result) {
+          const newWindow = window.open(result, '_blank');
 
-    // Simulate getting a link from the service
-    this.linkService.getLinkObservable().subscribe((result: string) => {
-      if (result) {
-        const newWindow = window.open(result, '_blank');
-
-        if (newWindow) {
-          newWindow.focus();
-        } else {
-          console.error('A new window could not be opened. Please check your popup blocker settings.');
+          if (newWindow) {
+            newWindow.focus();
+          } else {
+            console.error(
+              'A new window could not be opened. Please check your popup blocker settings.'
+            );
+          }
         }
-      }
+        console.log('The document was opened successfully.');
+      })
+      .catch(() => {
+        console.error('An error occurred while trying to open the document.');
+      });
+  }
+
+  private simulateAsyncApiCall(
+    productRegNr: string,
+    documentType: any
+  ): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      // Simulate an asynchronous API call
+      setTimeout(() => {
+        // Simulate emitting a link based on the productRegNr and documentType
+        const simulatedLink = this.simulateLink(productRegNr, documentType);
+
+        // Resolve the promise with the simulated link
+        resolve(simulatedLink);
+      }, 1000); // Simulate a delay of 1 second (adjust as needed)
     });
-    
-    // Simulate emitting a link based on the productRegNr and documentType
-    const simulatedLink = this.simulateLink(productRegNr, documentType);
-    this.linkService.simulateLink(simulatedLink);
   }
 
   private simulateLink(productRegNr: string, documentType: any): string {
@@ -43,5 +61,4 @@ export class AppComponent {
     // Replace this with your actual logic
     return `https://www.lvm.lv/images/lvm/Profesionaliem/Me%C5%BEizstr%C4%81de/Pielikumi/Instrukcija_mezizstrades_pakalpojumu_sniedzejiem_par_dokumentu_elektronisko_apriti.pdf`;
   }
-
 }

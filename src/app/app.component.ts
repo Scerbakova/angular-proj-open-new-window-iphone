@@ -19,13 +19,13 @@ export class AppComponent {
   }
 
   openDocumentByEnum(productRegNr: string, documentType: any): void {
+    const newWindow = window.open('_blank');
     // Simulate an asynchronous API call to get the link
     this.simulateAsyncApiCall(productRegNr, documentType)
       .then((result: string) => {
-        if (result) {
-          const newWindow = window.open(result, '_blank');
-
+        if (result) { 
           if (newWindow) {
+            newWindow.location = result;
             newWindow.focus();
           } else {
             console.error(
